@@ -20,6 +20,7 @@ namespace pryBDD
 
         private Decimal deuda;
         private Int32 cantidad;
+        private Decimal promedio;
 
         public Decimal TotalDeuda
         {
@@ -31,6 +32,9 @@ namespace pryBDD
             get { return cantidad; }
         }
 
+        public Decimal Promedio { 
+            get { return promedio; } 
+        }
         public void listar(DataGridView grilla)
         {
             try
@@ -71,13 +75,18 @@ namespace pryBDD
 
                 OleDbDataReader DR = comando.ExecuteReader();
                 grilla.Rows.Clear();
-                while (DR.Read()) {
 
-                    if (DR.GetDecimal(2) > 0)
+                if (DR.HasRows)
+                {
+                    while (DR.Read())
                     {
-                        grilla.Rows.Add(DR.GetInt32(0), DR.GetString(1), DR.GetDecimal(2));
-                        deuda += DR.GetDecimal(2);
-                        cantidad++;
+
+                        if (DR.GetDecimal(2) > 0)
+                        {
+                            grilla.Rows.Add(DR.GetInt32(0), DR.GetString(1), DR.GetDecimal(2));
+                            deuda += DR.GetDecimal(2);
+                            cantidad++;
+                        }
                     }
                 }
                 
