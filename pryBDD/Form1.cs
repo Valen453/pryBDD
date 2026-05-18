@@ -27,5 +27,11 @@ namespace pryBDD
             Form2 x = new Form2(); 
             x.ShowDialog();
         }
+
+        private void listadoDeDeudoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDeudores x = new frmDeudores();
+            x.ShowDialog();
+        }
     }
 }
