@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
+using System.IO;
 
 namespace pryBDD
 {
@@ -20,7 +21,7 @@ namespace pryBDD
 
         private Decimal deuda;
         private Int32 cantidad;
-        private Decimal promedio;
+        private Decimal promedio = 0;
 
         public Decimal TotalDeuda
         {
@@ -98,7 +99,56 @@ namespace pryBDD
                 throw;
             }
 
-        }
+ 
 
     }
+
+    public void generarReporte(){
+            try
+            {
+                conexion.ConnectionString = cadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = tabla;
+
+                OleDbDataReader DR = comando.ExecuteReader();
+                StreamWriter AD = new StreamWriter("ReporteClientes.csv", false);
+
+                AD.WriteLine("Listado de Clientes\n");
+                AD.WriteLine("Codigo; Nombre; Deuda");
+                int cantidad = 0;
+                decimal deuda = 0;
+
+                if (DR.HasRows)
+                {
+                    while (DR.Read())
+                    {
+
+                        AD.Write(DR.GetInt32(0));
+                        AD.Write(";");
+                        AD.Write(DR.GetString(1));
+                        AD.Write(";");
+                        AD.WriteLine(DR.GetDecimal(2));
+
+                        cantidad++;
+                        deuda = deuda + DR.GetDecimal(2);
+                    }
+                }
+
+                AD.WriteLine("Cantidad de clientes: ;;" + cantidad);
+                AD.WriteLine("Deuda de los clientes: ;;" + deuda);
+                AD.WriteLine("Promedio deuda: ;;" + deuda/cantidad);
+                conexion.Close();
+                AD.Close();
+            }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                    throw;
+                }
+
+            }
+     }
 }

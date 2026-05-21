@@ -21,12 +21,17 @@ namespace pryBDD
 
         private void button1_Click(object sender, EventArgs e)
         {
-            x.listar(dgvClientes);
+            x.listar(dgvGrilla);
         }
 
         private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnReporte_Click(object sender, EventArgs e)
+        {
+            x.generarReporte();
         }
     }
 }
