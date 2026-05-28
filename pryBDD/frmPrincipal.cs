@@ -33,5 +33,11 @@ namespace pryBDD
             frmDeudores x = new frmDeudores();
             x.ShowDialog();
         }
+
+        private void consultarClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmBuscarCliente x = new frmBuscarCliente();
+            x.ShowDialog();
+        }
     }
 }

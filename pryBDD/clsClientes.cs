@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace pryBDD
 {
@@ -23,9 +24,52 @@ namespace pryBDD
         private Int32 cantidad;
         private Decimal promedio = 0;
 
+        private Int32 idCli;
+        private String nombre;
+        private decimal deu;
+        private decimal lim;
+        private Int32 idAut;
+
+
         public Decimal TotalDeuda
         {
             get { return deuda; }
+        }
+
+        public String Nombre
+        {
+            get { return nombre; }
+            set { nombre = value; }
+        }
+
+        public Int32 IdCliente
+        {
+            get { return idCli; }
+            set { idCli = value; }
+        }
+
+        public Int32 idCliente
+        {
+            get { return idCliente; }
+            set { idCliente = value; }
+        }
+
+        public Decimal Deuda
+        {
+            get { return deu; }
+            set { deu = value; }
+        }
+
+        public Decimal Limite
+        {
+            get { return lim; }
+            set { lim = value; }
+        }
+
+        public Int32 Auto
+        {
+            get { return idAut; }
+            set { idAut = value; }
         }
 
         public Int32 CantidadDeudores
@@ -150,5 +194,56 @@ namespace pryBDD
                 }
 
             }
-     }
+
+        public void buscar(Int32 idCliente)
+        {
+            try
+            {
+                conexion.ConnectionString = cadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = tabla;
+                bool encontro = false;
+                OleDbDataReader DR = comando.ExecuteReader();
+
+                if (DR.HasRows)
+                {
+                    while (DR.Read())
+                    {
+
+                        if (DR.GetInt32(0) == idCliente)
+                        {
+                            idCli = DR.GetInt32(0);
+                            nombre = DR.GetString(1);
+                            deu = DR.GetDecimal(2);
+                            lim = DR.GetDecimal(3);
+                            idAut = DR.GetInt32(4);
+                            encontro = true;
+                            break;
+                        }
+
+                    }
+
+                    if (encontro == false)
+                    {
+                        MessageBox.Show("Cliente no encontrado");
+                    }
+                }
+
+                conexion.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                throw;
+            }
+
+
+
+        }
+    }
+
+
 }

@@ -89,6 +89,7 @@
             this.consultarClienteToolStripMenuItem.Name = "consultarClienteToolStripMenuItem";
             this.consultarClienteToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
             this.consultarClienteToolStripMenuItem.Text = "Consultar Cliente";
+            this.consultarClienteToolStripMenuItem.Click += new System.EventHandler(this.consultarClienteToolStripMenuItem_Click);
             // 
             // listadoDeClientesToolStripMenuItem
             // 
@@ -116,7 +117,7 @@
             this.ventasToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ventasToolStripMenuItem.Text = "Ventas";
             // 
-            // Form1
+            // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -124,7 +125,7 @@
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "frmPrincipal";
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
