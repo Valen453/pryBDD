@@ -16,5 +16,26 @@ namespace pryBDD
         {
             InitializeComponent();
         }
+
+        clsClientes x = new clsClientes();
+
+        clsAutomoviles y = new clsAutomoviles();
+        private void frmAgregarCliente_Load(object sender, EventArgs e)
+        {
+            y.listar(cbAutos);
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+            x.Nombre = txtNombre.Text;
+            x.Limite = Convert.ToDecimal(txtLimite.Text);
+            x.Auto = Convert.ToInt32(cbAutos.SelectedValue);
+            x.agregar();
+            MessageBox.Show("Datos grabados correctamente");
+            txtNombre.Text = "";
+            txtLimite.Text = "";
+            cbAutos.SelectedIndex = -1;
+            
+        }
     }
 }

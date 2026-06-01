@@ -39,5 +39,11 @@ namespace pryBDD
             frmBuscarCliente x = new frmBuscarCliente();
             x.ShowDialog();
         }
+
+        private void agregarNuevoClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAgregarCliente x = new frmAgregarCliente();
+            x.ShowDialog();
+        }
     }
 }

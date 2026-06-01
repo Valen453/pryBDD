@@ -18,7 +18,7 @@ namespace pryBDD
         private OleDbDataAdapter adaptador = new OleDbDataAdapter();
 
         private string cadenaConexion = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Clientes.mdb";
-        private string tabla = "Cliente";
+        public string tabla = "Cliente";
 
         private Decimal deuda;
         private Int32 cantidad;
@@ -240,7 +240,45 @@ namespace pryBDD
                 throw;
             }
 
+            
 
+        }
+
+        public void agregar()
+        {
+            try
+            {
+                string tabla = "Cliente";
+                conexion.ConnectionString = cadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = tabla;
+
+                adaptador = new OleDbDataAdapter(comando);
+                DataSet DS = new DataSet();
+                adaptador.Fill(DS, tabla);
+
+                DataTable Tabla = DS.Tables[tabla];
+                DataRow fila = Tabla.NewRow();
+
+                fila["Nombre"] = nombre;
+                fila["Deuda"] = 0;
+                fila["Limite"] = lim;
+                fila["Automovil"] = idAut;
+
+                Tabla.Rows.Add(fila);
+                OleDbCommandBuilder ConciliaCambios = new OleDbCommandBuilder(adaptador);
+                adaptador.Update(DS, tabla);
+                conexion.Close();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
         }
     }

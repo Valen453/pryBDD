@@ -33,5 +33,10 @@ namespace pryBDD
         {
             x.generarReporte();
         }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
