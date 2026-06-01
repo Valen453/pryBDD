@@ -16,7 +16,7 @@ namespace pryBDD
         private OleDbCommand comando = new OleDbCommand();
         private OleDbDataAdapter adaptador = new OleDbDataAdapter();
 
-        private string cadenaConexion = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Clientes.mdb";
+        private string cadenaConexion = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=..//..//BDDClientes//Clientes.mdb";
         private string tabla = "Automovil";
 
 
