@@ -31,7 +31,14 @@ namespace pryBDD
 
         private void btnReporte_Click(object sender, EventArgs e)
         {
-            x.generarReporte();
+            SaveFileDialog objArchivo = new SaveFileDialog();
+
+            objArchivo.Title = "Guardar reporte";
+            objArchivo.RestoreDirectory = true;
+            objArchivo.Filter = "Archivo separados por coma (*.csv)|*.csv|Archivo de texto (*.txt)|*.txt";
+
+            objArchivo.ShowDialog();
+            x.generarReporte(objArchivo.FileName);
         }
 
         private void Form2_Load(object sender, EventArgs e)

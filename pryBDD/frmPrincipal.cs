@@ -45,5 +45,11 @@ namespace pryBDD
             frmAgregarCliente x = new frmAgregarCliente();
             x.ShowDialog();
         }
+
+        private void listarForEachToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmForEach x = new frmForEach();
+            x.ShowDialog(); 
+        }
     }
 }

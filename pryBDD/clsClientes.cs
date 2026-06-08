@@ -281,7 +281,85 @@ namespace pryBDD
             }
 
         }
+
+        public void listarForEach(DataGridView grilla) {
+            try
+            {
+                conexion.ConnectionString = cadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = tabla;
+
+                adaptador = new OleDbDataAdapter(comando);
+                DataSet DS = new DataSet();
+                adaptador.Fill(DS, tabla);
+
+                if (DS.Tables[tabla].Rows.Count > 0)
+                {
+                    foreach (DataRow f in DS.Tables[tabla].Rows)
+                    {
+                        grilla.Rows.Add(f["Nombre"], f["Automovil"]);
+                    }
+                }
+
+                conexion.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                throw;
+            }
+        }
+
+        public void generarReporte(string nombreArchivo)
+        {
+            try
+            {
+                conexion.ConnectionString = cadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = tabla;
+
+                OleDbDataReader DR = comando.ExecuteReader();
+                StreamWriter AD = new StreamWriter(nombreArchivo, false);
+
+                AD.WriteLine("Listado de Clientes\n");
+                AD.WriteLine("Codigo; Nombre; Deuda");
+                int cantidad = 0;
+                decimal deuda = 0;
+
+                if (DR.HasRows)
+                {
+                    while (DR.Read())
+                    {
+
+                        AD.Write(DR.GetInt32(0));
+                        AD.Write(";");
+                        AD.Write(DR.GetString(1));
+                        AD.Write(";");
+                        AD.WriteLine(DR.GetDecimal(2));
+
+                        cantidad++;
+                        deuda = deuda + DR.GetDecimal(2);
+                    }
+                }
+
+                AD.WriteLine("Cantidad de clientes: ;;" + cantidad);
+                AD.WriteLine("Deuda de los clientes: ;;" + deuda);
+                AD.WriteLine("Promedio deuda: ;;" + deuda / cantidad);
+                conexion.Close();
+                AD.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+                throw;
+            }
+
+        }
     }
-
-
 }

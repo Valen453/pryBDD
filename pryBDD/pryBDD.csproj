@@ -60,6 +60,12 @@
     <Compile Include="frmBuscarCliente.Designer.cs">
       <DependentUpon>frmBuscarCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmForEach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmForEach.Designer.cs">
+      <DependentUpon>frmForEach.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmBuscarCliente.resx">
       <DependentUpon>frmBuscarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmForEach.resx">
+      <DependentUpon>frmForEach.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPrincipal.resx">
       <DependentUpon>frmPrincipal.cs</DependentUpon>
