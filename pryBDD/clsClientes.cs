@@ -324,7 +324,9 @@ namespace pryBDD
                 comando.CommandType = CommandType.TableDirect;
                 comando.CommandText = tabla;
 
-                OleDbDataReader DR = comando.ExecuteReader();
+                adaptador = new OleDbDataAdapter(comando);
+                DataSet DS = new DataSet();
+                adaptador.Fill(DS, tabla);
                 StreamWriter AD = new StreamWriter(nombreArchivo, false);
 
                 AD.WriteLine("Listado de Clientes\n");
@@ -332,19 +334,19 @@ namespace pryBDD
                 int cantidad = 0;
                 decimal deuda = 0;
 
-                if (DR.HasRows)
+                if (DS.Tables[tabla].Rows.Count > 0)
                 {
-                    while (DR.Read())
+                    foreach (DataRow f in DS.Tables[tabla].Rows)
                     {
 
-                        AD.Write(DR.GetInt32(0));
+                        AD.Write(f["idCliente"]);
                         AD.Write(";");
-                        AD.Write(DR.GetString(1));
+                        AD.Write(f["Nombre"]);
                         AD.Write(";");
-                        AD.WriteLine(DR.GetDecimal(2));
+                        AD.WriteLine(f["Deuda"]);
 
                         cantidad++;
-                        deuda = deuda + DR.GetDecimal(2);
+                        deuda = deuda + Convert.ToDecimal(f["Deuda"]);
                     }
                 }
 
